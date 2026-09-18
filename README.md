@@ -93,13 +93,3 @@ ecosort-ai/
 
 ---
 
-## ?? Submission Checklist (1M1B Guidelines Section 8)
-
-- [x] **Project Title & Student Credentials:** Clearly outlined in `PROJECT_REPORT.md` and Slide 1.
-- [x] **SDG Alignment:** Primary SDG 12 (Target 12.5), Secondary SDG 11 & SDG 13.
-- [x] **Problem Statement:** Formatted strictly to *"How might we use AI to ... so that ... can become more sustainable?"*
-- [x] **AI Solution Overview:** Multimodal Vision + IBM Granite RAG + Lifecycle LCA.
-- [x] **Design Thinking Journey:** Empathize, Define, Ideate, Prototype, Test & Refine documented.
-- [x] **Responsible AI Considerations:** Dedicated section covering Fairness, Transparency, Ethics, and Privacy.
-- [x] **Working Prototype & Demo:** Live interactive application with real-world test cases and API endpoints.
-- [x] **Measurable Impact Statement:** Environmental, Social, and Economic metrics calculated.
