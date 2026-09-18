@@ -1,0 +1,138 @@
+[
+  {
+    "id": "doc_swm_2016_segregation",
+    "title": "Solid Waste Management Rules 2016 - Three-Stream Segregation",
+    "source": "Ministry of Environment, Forest and Climate Change (MoEFCC), Govt. of India",
+    "category": "Regulatory Policy",
+    "content": "Under SWM Rules 2016, all waste generators must segregate waste at source into three distinct streams: Wet (biodegradable), Dry (recyclable plastics, paper, metal, glass, textiles), and Domestic Hazardous (diapers, mosquito repellent cans, cleaning chemicals, broken glass). Green bins are designated for biodegradable wet waste, Blue bins for dry recyclables, and Red/Black bins for domestic hazardous waste. Mixing streams leads to severe landfill contamination.",
+    "keywords": [
+      "swm 2016",
+      "segregation",
+      "streams",
+      "green bin",
+      "blue bin",
+      "red bin",
+      "hazardous",
+      "dry waste",
+      "wet waste",
+      "policy",
+      "rules"
+    ]
+  },
+  {
+    "id": "doc_plastic_rules_epr",
+    "title": "Plastic Waste Management Rules & Single-Use Plastic Ban",
+    "source": "Central Pollution Control Board (CPCB) Guidelines",
+    "category": "Plastics & Packaging",
+    "content": "Prohibits identified Single-Use Plastic (SUP) items having low utility and high littering potential (cutlery, straws, thin polybags <120 microns, thermocol decor). Rigid plastics with SPI resin codes 1 (PET) and 2 (HDPE) have high recycling market value and must be emptied, rinsed, and collected clean. Multilayer plastics (MLP) such as chip bags require specialized chemical or pyrolysis recycling under Extended Producer Responsibility (EPR).",
+    "keywords": [
+      "plastic",
+      "single-use plastic",
+      "sup",
+      "resin code",
+      "pet",
+      "hdpe",
+      "multilayer",
+      "chips packet",
+      "epr",
+      "recycling",
+      "bottle"
+    ]
+  },
+  {
+    "id": "doc_ewaste_2022",
+    "title": "E-Waste (Management) Rules 2022 & Battery Handling",
+    "source": "MoEFCC & Bureau of Indian Standards",
+    "category": "E-Waste & Electronics",
+    "content": "Electronics, circuit boards, lithium-ion batteries, and spent dry cell batteries must NEVER be discarded in blue or green household bins. Lithium batteries pose catastrophic thermal runaway and fire hazards in waste collection compactor trucks. E-waste must be deposited at authorized Producer Responsibility Organisation (PRO) collection bins or designated campus e-waste drop-boxes (Yellow Bins) for safe dismantling and rare metal recovery.",
+    "keywords": [
+      "e-waste",
+      "battery",
+      "lithium",
+      "circuit board",
+      "phone",
+      "laptop",
+      "fire hazard",
+      "toxic",
+      "lead",
+      "cadmium",
+      "drop-box",
+      "charger"
+    ]
+  },
+  {
+    "id": "doc_paper_cardboard_contamination",
+    "title": "Paper, Cardboard & Food Contamination Protocols",
+    "source": "Circular Economy in Municipal Solid Waste Standard Practice",
+    "category": "Paper & Cardboard",
+    "content": "Paper and corrugated cardboard are highly recyclable, saving 17 trees per ton of recycled fiber. However, grease, oil, food residue, and sauces irreversibly contaminate paper pulp slurries during recycling. Greasy pizza box bottoms, used paper plates, and sauce-stained napkins CANNOT be recycled in the paper stream and must be diverted to composting or organic digestion. Clean cardboard box tops can be torn off and recycled.",
+    "keywords": [
+      "paper",
+      "cardboard",
+      "pizza box",
+      "grease",
+      "oil",
+      "food stain",
+      "contamination",
+      "pulp",
+      "compost",
+      "carton"
+    ]
+  },
+  {
+    "id": "doc_campus_bin_protocol",
+    "title": "Smart Campus Waste Guidelines & Dormitory Protocol",
+    "source": "AICTE-Green Campus Sustainability Framework",
+    "category": "Campus Operations",
+    "content": "University campus zones operate a localized 4-bin system: 1) Green (Canteen food leftovers, horticulture garden trimmings), 2) Blue (Clean paper, clean PET bottles, beverage aluminum cans), 3) Black/Red (Sanitary waste, chemical lab residue, broken glassware wrapped in paper), and 4) Yellow E-Box (Located in hostels and engineering building lobbies for cables, peripherals, and batteries). Rinsing food packaging before disposal prevents odor and insect infestation.",
+    "keywords": [
+      "campus",
+      "hostel",
+      "canteen",
+      "dormitory",
+      "bin colors",
+      "yellow e-box",
+      "horticulture",
+      "rinse",
+      "university",
+      "college"
+    ]
+  },
+  {
+    "id": "doc_sanitation_worker_safety",
+    "title": "Occupational Safety and Informal Sanitation Worker Protection",
+    "source": "Safai Karamchari Welfare & National Waste Pickers Alliance",
+    "category": "Social & Ethics",
+    "content": "Informal waste pickers and municipal sanitation workers face extreme occupational health hazards including puncture wounds, tetanus, hepatitis, and chemical burns from improperly disposed glass shards, razor blades, and unsegregated medical/sanitary items. Broken glass and needles must be wrapped securely in thick newspaper and labeled with a red cross or warning marker before disposal in hazardous bins.",
+    "keywords": [
+      "sanitation workers",
+      "waste pickers",
+      "safety",
+      "broken glass",
+      "needles",
+      "dignity",
+      "occupational hazards",
+      "safai karamchari",
+      "ethics",
+      "social"
+    ]
+  },
+  {
+    "id": "doc_upcycling_circularity",
+    "title": "Campus Circular Economy & Upcycling Ideas",
+    "source": "Zero Waste International Alliance (ZWIA)",
+    "category": "Circular Economy",
+    "content": "Before bin disposal, consider the waste hierarchy: Refuse, Reduce, Reuse, Repurpose, Recycle. Clean glass jars make durable lab/dorm organizers or plant propagation vessels. HDPE containers can be converted to DIY planters. Discarded delivery cardboard boxes can be aggregated for hostel relocation drives or shredded for vermicomposting bedding.",
+    "keywords": [
+      "upcycling",
+      "circular economy",
+      "reuse",
+      "diy",
+      "planters",
+      "glass jars",
+      "cardboard",
+      "vermicompost",
+      "repurpose"
+    ]
+  }
+]

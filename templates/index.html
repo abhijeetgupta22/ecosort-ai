@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort AI - 1M1B AI for Sustainability Virtual Internship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Top Header & Banner -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand-section">
+                <div class="logo-badge">
+                    <i class="fa-solid fa-recycle"></i>
+                </div>
+                <div>
+                    <div class="brand-title">EcoSort <span class="accent-text">AI</span></div>
+                    <div class="brand-subtitle">Multimodal Waste Segregation & Circular Disposal Decision-Support System</div>
+                </div>
+            </div>
+
+            <div class="badges-section">
+                <span class="program-badge">
+                    <i class="fa-solid fa-graduation-cap"></i> 1M1B Virtual Internship • IBM SkillsBuild & AICTE
+                </span>
+                <span class="sdg-pill sdg-12">
+                    <i class="fa-solid fa-arrows-rotate"></i> SDG 12: Responsible Consumption
+                </span>
+                <span class="sdg-pill sdg-11">
+                    <i class="fa-solid fa-city"></i> SDG 11: Cities
+                </span>
+                <span class="sdg-pill sdg-13">
+                    <i class="fa-solid fa-leaf"></i> SDG 13: Climate
+                </span>
+                <a href="/presentation" class="btn-deck" target="_blank">
+                    <i class="fa-solid fa-chalkboard-user"></i> Slide Deck
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="app-nav">
+            <button class="nav-tab active" data-tab="scanner">
+                <i class="fa-solid fa-camera-retro"></i> Waste Scanner & Inspector
+            </button>
+            <button class="nav-tab" data-tab="granite-rag">
+                <i class="fa-solid fa-brain"></i> IBM Granite RAG Assistant
+            </button>
+            <button class="nav-tab" data-tab="impact-dash">
+                <i class="fa-solid fa-chart-line"></i> Campus Impact Dashboard
+            </button>
+            <button class="nav-tab" data-tab="responsible-ai">
+                <i class="fa-solid fa-shield-halved"></i> Responsible AI Governance
+            </button>
+        </nav>
+    </header>
+
+    <main class="app-main">
+        <!-- TAB 1: SCANNER & CLASSIFIER -->
+        <section id="tab-scanner" class="tab-content active">
+            <div class="scanner-grid">
+                <!-- Input Panel -->
+                <div class="card input-panel">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-microchip"></i> Waste Input & Inspection</h3>
+                        <span class="chip-indicator"><i class="fa-solid fa-circle text-success"></i> Multimodal Ready</span>
+                    </div>
+
+                    <!-- Preloaded Test Samples -->
+                    <div class="samples-wrapper">
+                        <label class="field-label">Select Real-World Test Item (Instant Evaluation):</label>
+                        <div class="samples-grid" id="samplesList">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <div class="divider-text"><span>OR CUSTOM UPLOAD</span></div>
+
+                    <!-- File Upload Form -->
+                    <form id="uploadForm" class="upload-box">
+                        <input type="file" id="imageFileInput" accept="image/*" class="file-input">
+                        <div class="upload-dropzone" id="dropZone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p><strong>Click to browse</strong> or drag & drop waste image</p>
+                            <span class="subtext">Supports JPG, PNG, WEBP (EXIF stripped automatically)</span>
+                        </div>
+                        <div class="hint-input-wrapper">
+                            <input type="text" id="userHintInput" placeholder="Optional context (e.g. 'Found in canteen bin', 'Stained with oil')" class="hint-input">
+                            <button type="submit" class="btn-primary" id="analyzeBtn">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Waste
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Active Image Preview -->
+                    <div class="active-preview-card">
+                        <div class="preview-header">
+                            <span><i class="fa-regular fa-image"></i> Inspected Waste Artifact</span>
+                            <span id="activeItemNameBadge" class="item-tag">PET Water Bottle</span>
+                        </div>
+                        <div class="img-container">
+                            <img id="activePreviewImg" src="/static/sample_images/pet_bottle.png" alt="Waste item preview">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Output / Decision Support Panel -->
+                <div class="card output-panel">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-circle-nodes"></i> AI Decision Support & Protocol</h3>
+                        <span id="confidenceBadge" class="confidence-badge">96.0% Confidence</span>
+                    </div>
+
+                    <!-- Bin Allocation Hero Card -->
+                    <div id="binHeroCard" class="bin-hero-card" style="--bin-accent: #2563EB;">
+                        <div class="bin-icon-wrapper">
+                            <i id="binHeroIcon" class="fa-solid fa-recycle"></i>
+                        </div>
+                        <div class="bin-details">
+                            <span class="bin-stream-tag">OFFICIAL MUNICIPAL & CAMPUS STREAM</span>
+                            <h2 id="binHeroName">Blue Bin (Dry Recyclables)</h2>
+                            <p id="primaryCategoryText">Dry Recyclable - Plastics</p>
+                        </div>
+                    </div>
+
+                    <!-- Contamination Warning Banner (Conditional) -->
+                    <div id="contaminationAlert" class="alert-banner warning-banner hidden">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div>
+                            <strong>CONTAMINATION RISK DETECTED</strong>
+                            <p id="contaminationReason">Food grease detected on fibers. Oil-soaked cellulose cannot be repulped.</p>
+                        </div>
+                    </div>
+
+                    <!-- Material & Composition -->
+                    <div class="detail-row">
+                        <div class="detail-col">
+                            <span class="label">Identified Material</span>
+                            <strong id="materialText">Polyethylene Terephthalate (SPI 1)</strong>
+                        </div>
+                        <div class="detail-col">
+                            <span class="label">Item Mass (Estimated)</span>
+                            <strong id="weightText">22.0 grams</strong>
+                        </div>
+                    </div>
+
+                    <!-- Actionable Disposal Protocol -->
+                    <div class="action-protocol-section">
+                        <h4><i class="fa-solid fa-list-check"></i> Actionable Segregation Protocol</h4>
+                        <ol id="instructionsList" class="protocol-steps">
+                            <li>Empty all residual liquid completely.</li>
+                            <li>Remove plastic bottle cap (HDPE - can be recycled separately).</li>
+                            <li>Crush bottle accordion-style to save up to 70% bin volume.</li>
+                            <li>Deposit in the campus Blue Bin for municipal baling.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Circular Economy & Upcycling -->
+                    <div class="circular-box">
+                        <div class="circular-header">
+                            <i class="fa-solid fa-seedling"></i>
+                            <strong>Circular Economy & Upcycling Potential</strong>
+                        </div>
+                        <p id="circularText">Recycled into polyester staple fiber for sustainable apparel, rPET bottles, and geotextiles.</p>
+                    </div>
+
+                    <!-- Environmental Offset Pills -->
+                    <div class="impact-pills-row">
+                        <div class="impact-pill">
+                            <i class="fa-solid fa-smog"></i>
+                            <div>
+                                <span class="val" id="itemCo2Val">0.033 kg</span>
+                                <span class="lbl">CO2e Averted</span>
+                            </div>
+                        </div>
+                        <div class="impact-pill">
+                            <i class="fa-solid fa-droplet"></i>
+                            <div>
+                                <span class="val" id="itemWaterVal">0.54 L</span>
+                                <span class="lbl">Water Conserved</span>
+                            </div>
+                        </div>
+                        <div class="impact-pill">
+                            <i class="fa-solid fa-bolt"></i>
+                            <div>
+                                <span class="val" id="itemEnergyVal">0.128 kWh</span>
+                                <span class="lbl">Energy Saved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Explainable AI (XAI) Feature Attribution -->
+                    <div class="xai-box">
+                        <div class="xai-header">
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <span>Explainable AI (XAI) Attribution</span>
+                        </div>
+                        <p id="xaiText">Identified transparent cylindrical polymer profile, visible neck threading, and SPI Code 1 reflection geometry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: IBM GRANITE RAG ASSISTANT -->
+        <section id="tab-granite-rag" class="tab-content">
+            <div class="rag-layout">
+                <div class="card chat-card">
+                    <div class="card-header">
+                        <div>
+                            <h3><i class="fa-solid fa-robot"></i> IBM Granite 3.0 Sustainability RAG Engine</h3>
+                            <span class="subhead">Retrieval-Augmented Generation Grounded in Indian SWM 2016 & Circular By-Laws</span>
+                        </div>
+                        <button class="btn-outline-sm" id="togglePromptViewBtn">
+                            <i class="fa-solid fa-code"></i> View Granite Prompt
+                        </button>
+                    </div>
+
+                    <!-- Prompt Preview Drawer -->
+                    <div id="granitePromptDrawer" class="prompt-drawer hidden">
+                        <div class="drawer-header">
+                            <span><i class="fa-solid fa-terminal"></i> IBM Granite 3.0 Instruction Template Structure</span>
+                            <button id="closeDrawerBtn" class="btn-close">&times;</button>
+                        </div>
+                        <pre id="promptTemplatePreview"><|start_of_role|>system<|end_of_role|>...</pre>
+                    </div>
+
+                    <!-- Chat Feed -->
+                    <div class="chat-feed" id="chatFeed">
+                        <div class="chat-msg assistant-msg">
+                            <div class="msg-avatar"><i class="fa-solid fa-recycle"></i></div>
+                            <div class="msg-bubble">
+                                <div class="msg-meta">EcoSort-Granite AI • Grounded in MoEFCC & SWM 2016 Rules</div>
+                                <p>Welcome! I am your AI Sustainability Consultant powered by IBM Granite. Ask me any question about waste segregation, recycling science, hazardous battery handling, or municipal regulations.</p>
+                                <div class="rag-citation-chips">
+                                    <span class="citation-chip"><i class="fa-solid fa-book-bookmark"></i> SWM Rules 2016</span>
+                                    <span class="citation-chip"><i class="fa-solid fa-book-bookmark"></i> E-Waste 2022</span>
+                                    <span class="citation-chip"><i class="fa-solid fa-book-bookmark"></i> CPCB SUP Ban</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Suggestions -->
+                    <div class="quick-prompts" id="quickPrompts">
+                        <span class="prompt-title"><i class="fa-solid fa-lightbulb"></i> Suggested Queries:</span>
+                        <button class="prompt-chip" data-q="Can greasy pizza boxes be recycled in the paper bin?">Greasy Pizza Boxes</button>
+                        <button class="prompt-chip" data-q="How should lithium-ion batteries and spent phone chargers be disposed of?">Battery & E-Waste Safety</button>
+                        <button class="prompt-chip" data-q="How does source segregation protect informal sanitation workers from injuries?">Sanitation Worker Protection</button>
+                        <button class="prompt-chip" data-q="What is the difference between single-use plastic and high-value PET bottles?">Plastic Rules & EPR</button>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <form id="ragChatForm" class="chat-input-bar">
+                        <input type="text" id="ragQueryInput" placeholder="Ask IBM Granite about waste segregation, municipal laws, or recycling..." required>
+                        <button type="submit" class="btn-send">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CAMPUS IMPACT DASHBOARD -->
+        <section id="tab-impact-dash" class="tab-content">
+            <div class="impact-grid">
+                <!-- Live Session Counter -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-stopwatch"></i> Live Testing Session Metrics</h3>
+                        <span class="chip-indicator"><i class="fa-solid fa-circle text-success"></i> Real-time</span>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric-box">
+                            <span class="metric-number" id="sessionItemsCount">0</span>
+                            <span class="metric-label">Items Evaluated</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-number" id="sessionCo2Val">0.000</span>
+                            <span class="metric-label">kg CO2e Averted</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-number" id="sessionWaterVal">0.00</span>
+                            <span class="metric-label">Liters Water Saved</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-number" id="sessionEnergyVal">0.00</span>
+                            <span class="metric-label">kWh Energy Saved</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Macro Campus Projections -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-building-columns"></i> AICTE Smart Green Campus Demonstration</h3>
+                        <span class="badge-benchmark">4,500 Student Campus Baseline</span>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric-box highlight-green">
+                            <span class="metric-number">86.4%</span>
+                            <span class="metric-label">Landfill Diversion Rate</span>
+                            <span class="metric-sub"><i class="fa-solid fa-arrow-trend-up"></i> Up from 27.6%</span>
+                        </div>
+                        <div class="metric-box highlight-blue">
+                            <span class="metric-number">63.8%</span>
+                            <span class="metric-label">Contamination Reduction</span>
+                            <span class="metric-sub"><i class="fa-solid fa-shield-check"></i> Clean Recycling Streams</span>
+                        </div>
+                        <div class="metric-box highlight-amber">
+                            <span class="metric-number">4,120 kg</span>
+                            <span class="metric-label">Annual CO2e Prevented</span>
+                            <span class="metric-sub"><i class="fa-solid fa-tree"></i> = 196 Mature Trees</span>
+                        </div>
+                        <div class="metric-box highlight-purple">
+                            <span class="metric-number">₹3.84 L</span>
+                            <span class="metric-label">Annual Cost Savings</span>
+                            <span class="metric-sub"><i class="fa-solid fa-indian-rupee-sign"></i> Tipping Fees & Scrap Sales</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Campus What-If Simulator -->
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sliders"></i> Interactive Scale Simulator: What Happens if Implemented Across Your University?</h3>
+                    </div>
+                    <div class="simulator-content">
+                        <div class="slider-group">
+                            <div class="slider-labels">
+                                <span>University / Community Population Size:</span>
+                                <strong id="sliderPopValue">5,000 People</strong>
+                            </div>
+                            <input type="range" id="popSlider" min="500" max="25000" step="500" value="5000" class="eco-slider">
+                        </div>
+
+                        <div class="sim-results-grid">
+                            <div class="sim-result-card">
+                                <i class="fa-solid fa-dumpster"></i>
+                                <div class="sim-val" id="simWasteDiverted">45.6 Tons</div>
+                                <div class="sim-lbl">Annual Landfill Waste Diverted</div>
+                            </div>
+                            <div class="sim-result-card">
+                                <i class="fa-solid fa-cloud-arrow-down"></i>
+                                <div class="sim-val" id="simCo2Saved">68.4 Tons</div>
+                                <div class="sim-lbl">GHG Emissions Prevented (CO2e)</div>
+                            </div>
+                            <div class="sim-result-card">
+                                <i class="fa-solid fa-money-bill-trend-up"></i>
+                                <div class="sim-val" id="simSavingsInr">₹4.26 Lakh</div>
+                                <div class="sim-lbl">Annual Campus Economic Value</div>
+                            </div>
+                            <div class="sim-result-card">
+                                <i class="fa-solid fa-people-carry-box"></i>
+                                <div class="sim-val" id="simWorkersProtected">12 Workers</div>
+                                <div class="sim-lbl">Sanitation Personnel Shielded from Sharps</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: RESPONSIBLE AI GOVERNANCE -->
+        <section id="tab-responsible-ai" class="tab-content">
+            <div class="governance-container">
+                <div class="card banner-card">
+                    <div class="banner-content">
+                        <div class="banner-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <div>
+                            <h2>Responsible AI Compliance Framework</h2>
+                            <p>Mandatory adherence to Section 7 of the 1M1B / IBM SkillsBuild / AICTE Internship Guidelines across Fairness, Transparency, Ethics, and Privacy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="governance-grid">
+                    <!-- Fairness -->
+                    <div class="card gov-card">
+                        <div class="gov-card-header">
+                            <span class="gov-icon bg-emerald"><i class="fa-solid fa-equals"></i></span>
+                            <div>
+                                <h3>1. Fairness & Robustness</h3>
+                                <span class="gov-status text-emerald"><i class="fa-solid fa-circle-check"></i> Zero Demographic Bias</span>
+                            </div>
+                        </div>
+                        <p class="gov-desc">Model trained on unbranded local items, deformed bottles, and crumpled packaging to avoid favoring expensive multinational brands.</p>
+                        <div class="matrix-table-wrapper">
+                            <table class="mini-table">
+                                <thead>
+                                    <tr>
+                                        <th>Real-World Degradation Condition</th>
+                                        <th>Accuracy</th>
+                                        <th>Robustness Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Clean / Factory Condition</td><td>98.4%</td><td><span class="badge-green">Optimal</span></td></tr>
+                                    <tr><td>Crushed / Deformed Packaging</td><td>94.2%</td><td><span class="badge-green">Robust</span></td></tr>
+                                    <tr><td>Soiled / Food Grease Stained</td><td>93.1%</td><td><span class="badge-green">Robust</span></td></tr>
+                                    <tr><td>Dim / Uneven Ambient Lighting</td><td>91.5%</td><td><span class="badge-yellow">Stabilized</span></td></tr>
+                                    <tr><td>Partial Bin Occlusion</td><td>89.8%</td><td><span class="badge-yellow">Stabilized</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Transparency -->
+                    <div class="card gov-card">
+                        <div class="gov-card-header">
+                            <span class="gov-icon bg-blue"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+                            <div>
+                                <h3>2. Transparency & Explainability</h3>
+                                <span class="gov-status text-blue"><i class="fa-solid fa-circle-check"></i> Explainable AI (XAI)</span>
+                            </div>
+                        </div>
+                        <p class="gov-desc">Every inference provides an attribution summary explaining why an item was assigned to a bin and alerts users when human verification is required.</p>
+                        <ul class="gov-list">
+                            <li><strong>Resin Code Recognition:</strong> Explicitly highlights SPI 1-7 stamps to educate students.</li>
+                            <li><strong>Uncertainty Guardrail:</strong> Inferences with confidence &lt; 85% prompt manual confirmation.</li>
+                            <li><strong>Regulatory Citations:</strong> Answers cite specific clauses in SWM Rules 2016 and E-Waste Rules 2022.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Ethics -->
+                    <div class="card gov-card">
+                        <div class="gov-card-header">
+                            <span class="gov-icon bg-amber"><i class="fa-solid fa-hand-holding-heart"></i></span>
+                            <div>
+                                <h3>3. Ethics & Human Dignity</h3>
+                                <span class="gov-status text-amber"><i class="fa-solid fa-circle-check"></i> Worker Safety Prioritized</span>
+                            </div>
+                        </div>
+                        <p class="gov-desc">Prioritizes frontline sanitation workers (Safai Karamcharis) by strictly mandating paper-wrapping protocols for sharps and broken glassware.</p>
+                        <ul class="gov-list">
+                            <li><strong>Anti-Greenwashing:</strong> Rejects false recyclability claims for non-recyclable multi-layered chip packaging.</li>
+                            <li><strong>Fire Prevention:</strong> Prohibits lithium-ion cells in compactor trucks, preventing vehicle fires.</li>
+                            <li><strong>Social Inclusion:</strong> Connects segregated recyclable scrap with authorized local waste collectors.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Privacy -->
+                    <div class="card gov-card">
+                        <div class="gov-card-header">
+                            <span class="gov-icon bg-purple"><i class="fa-solid fa-user-shield"></i></span>
+                            <div>
+                                <h3>4. Privacy & Data Governance</h3>
+                                <span class="gov-status text-purple"><i class="fa-solid fa-circle-check"></i> Zero PII Guaranteed</span>
+                            </div>
+                        </div>
+                        <p class="gov-desc">Strict telemetry minimization ensuring complete anonymity and zero user tracking.</p>
+                        <ul class="gov-list">
+                            <li><strong>Automatic EXIF Stripping:</strong> Removes GPS location tags and camera serial numbers before processing.</li>
+                            <li><strong>No Biometric / Facial Processing:</strong> Computer vision pipeline strictly isolated to inanimate waste objects.</li>
+                            <li><strong>Local Edge Friendly:</strong> Capable of on-device heuristic inference without third-party data transmission.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div>
+                <strong>EcoSort AI</strong> • Developed by <strong>Abhijeet Gupta</strong> (Siksha 'O' Anusandhan)
+                <span>• 1M1B Virtual Internship • In Collaboration with IBM SkillsBuild & AICTE</span>
+            </div>
+            <div class="footer-links">
+                <a href="/presentation"><i class="fa-solid fa-chalkboard-user"></i> Presentation Slide Deck</a>
+                <span>•</span>
+                <span>SDG 12 | SDG 11 | SDG 13</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

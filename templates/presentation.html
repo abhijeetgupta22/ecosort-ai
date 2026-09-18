@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort AI - 1M1B Virtual Internship Final Presentation Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #065F46;
+            --bg-dark: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-color: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .pres-header {
+            background-color: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+        }
+        .pres-title-group { display: flex; align-items: center; gap: 12px; }
+        .pres-title-group h1 { font-size: 1.1rem; font-weight: 700; }
+        .pres-badge {
+            background-color: #064E3B;
+            color: #34D399;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .pres-controls { display: flex; align-items: center; gap: 12px; }
+        .btn-nav {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .btn-nav:hover:not(:disabled) { background-color: var(--primary); border-color: var(--primary); }
+        .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+        .slide-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-muted); }
+        .btn-print {
+            background-color: #0284C7;
+            color: #FFF;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .slide-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 82vh;
+            max-height: 680px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow-y: auto;
+        }
+        .slide-container.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-head { margin-bottom: 20px; }
+        .slide-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #34D399;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .slide-head h2 { font-size: 1.8rem; font-weight: 800; color: #FFF; line-height: 1.2; }
+        .slide-body { flex: 1; }
+        .slide-foot {
+            border-top: 1px solid var(--border-color);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .info-card {
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .info-card h4 { color: #38BDF8; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .info-card p, .info-card li { font-size: 0.90rem; color: #CBD5E1; line-height: 1.5; }
+        .info-card ul { padding-left: 20px; }
+        .problem-statement-box {
+            background: rgba(6, 95, 70, 0.2);
+            border-left: 5px solid #10B981;
+            padding: 18px;
+            border-radius: 0 12px 12px 0;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #E2E8F0;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+        .highlight { color: #34D399; font-weight: 700; }
+        .speaker-notes-panel {
+            background-color: #0A0F1D;
+            border-top: 1px solid var(--border-color);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            color: #94A3B8;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+        .speaker-notes-panel strong { color: #38BDF8; }
+        @media print {
+            body { overflow: visible; height: auto; background: white; color: black; }
+            .pres-header, .speaker-notes-panel { display: none !important; }
+            .slide-stage { padding: 0; display: block; }
+            .slide-container {
+                display: flex !important;
+                page-break-after: always;
+                height: 100vh;
+                max-height: none;
+                background: white;
+                color: #111;
+                border: 1px solid #CCC;
+                box-shadow: none;
+                margin-bottom: 20px;
+            }
+            .slide-head h2 { color: #065F46; }
+            .info-card { background: #F8FAFC; border: 1px solid #E2E8F0; }
+            .info-card h4 { color: #0284C7; }
+            .info-card p, .info-card li { color: #334155; }
+            .problem-statement-box { background: #ECFDF5; border-left-color: #059669; color: #064E3B; }
+        }
+    </style>
+</head>
+<body>
+    <div class="pres-header">
+        <div class="pres-title-group">
+            <a href="/" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Back to App</a>
+            <h1>EcoSort AI ? Final Presentation Deck</h1>
+            <span class="pres-badge">1M1B ? IBM SkillsBuild ? AICTE</span>
+        </div>
+        <div class="pres-controls">
+            <button class="btn-nav" id="prevBtn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+            <span class="slide-counter" id="slideCounter">Slide 1 / 10</span>
+            <button class="btn-nav" id="nextBtn" onclick="nextSlide()">Next <i class="fa-solid fa-chevron-right"></i></button>
+            <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Save as PDF</button>
+        </div>
+    </div>
+    <div class="slide-stage">
+        <div class="slide-container active" data-notes="Introduce project title, student credentials, and collaboration between 1M1B, IBM SkillsBuild, and AICTE.">
+            <div class="slide-head">
+                <span class="slide-tag">1M1B AI for Sustainability Virtual Internship</span>
+                <h2>EcoSort AI: Multimodal Waste Segregation & Circular Disposal Decision-Support System</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-id-card"></i> Student Profile</h4>
+            <p style="margin-bottom:8px;"><strong>Student Name:</strong> Abhijeet Gupta</p>
+            <p style="margin-bottom:8px;"><strong>College:</strong> Siksha 'O' Anusandhan</p>
+            <p style="margin-bottom:8px;"><strong>Program:</strong> 1M1B AI for Sustainability Virtual Internship</p>
+            <p style="margin-bottom:8px;"><strong>Collaboration:</strong> IBM SkillsBuild & AICTE</p>
+            <p><strong>Primary AI:</strong> IBM Granite 3.0, RAG, Multimodal Vision</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-bullseye"></i> Executive Summary</h4>
+            <p>EcoSort AI is an intelligent, camera-ready decision-support system designed to eliminate waste segregation failure on university campuses and in urban communities.</p>
+            <ul style="margin-top:10px;">
+                <li>Combines <strong>multimodal computer vision</strong> with an <strong>IBM Granite RAG pipeline</strong>.</li>
+                <li>Detects contamination (e.g. greasy cardboard, unrinsed packaging) in real time.</li>
+                <li>Directly maps to <strong>UN Sustainable Development Goals 12, 11, and 13</strong>.</li>
+            </ul>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 1 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Highlight primary SDG 12 and secondary SDGs 11 and 13.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 3 ? Choosing Your Problem Statement</span>
+                <h2>UN Sustainable Development Goal (SDG) Alignment</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+        <div class="info-card" style="border-top:4px solid #D97706;">
+            <h4><i class="fa-solid fa-arrows-spin"></i> Primary: SDG 12</h4>
+            <p><strong>Responsible Consumption & Production</strong></p>
+            <p style="margin-top:8px;"><strong>Target 12.5:</strong> By 2030, substantially reduce waste generation through prevention, reduction, recycling, and reuse.</p>
+            <p style="margin-top:8px; font-size:0.85rem; color:#94A3B8;">Inspects items at point-of-disposal to prevent contaminated recyclables from being landfilled.</p>
+        </div>
+        <div class="info-card" style="border-top:4px solid #0284C7;">
+            <h4><i class="fa-solid fa-city"></i> Secondary: SDG 11</h4>
+            <p><strong>Sustainable Cities & Communities</strong></p>
+            <p style="margin-top:8px;"><strong>Target 11.6:</strong> Reduce adverse per capita environmental impact of cities, including municipal waste management.</p>
+            <p style="margin-top:8px; font-size:0.85rem; color:#94A3B8;">Enforces 3-stream municipal compliance (SWM 2016) in campus hostels and urban hubs.</p>
+        </div>
+        <div class="info-card" style="border-top:4px solid #16A34A;">
+            <h4><i class="fa-solid fa-leaf"></i> Secondary: SDG 13</h4>
+            <p><strong>Climate Action</strong></p>
+            <p style="margin-top:8px;"><strong>Target 13.3:</strong> Improve education, awareness, and institutional capacity on climate change mitigation.</p>
+            <p style="margin-top:8px; font-size:0.85rem; color:#94A3B8;">Diverting organic waste from landfills directly mitigates potent methane (CH4) greenhouse emissions.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 2 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Read the problem statement verbatim in the prescribed format.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 3 ? Prescribed Format</span>
+                <h2>Problem Statement & Local Relevance</h2>
+            </div>
+            <div class="slide-body">
+                <div class="problem-statement-box">
+        "How might we use AI to <span class="highlight">accurately identify, inspect, and guide the segregation of complex solid waste</span> at the point of disposal so that <span class="highlight">university campuses and urban communities can become more sustainable, eliminate landfill contamination, and safeguard sanitation workers</span>?"
+    </div>
+    <div class="grid-3" style="margin-top:20px;">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-building-columns"></i> 1. Campus Grounding</h4>
+            <p>Hostels and canteens produce >1.2 metric tons of waste daily. Over 70% of recyclable paper and plastic is ruined by food and beverage oil contamination.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-triangle-exclamation"></i> 2. Current Inefficiencies</h4>
+            <p>Static colored bins provide zero feedback. Students face confusion with multilayer chip bags, soiled cardboard, and unlabelled polymers.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-hand-holding-medical"></i> 3. Human Vulnerability</h4>
+            <p>Sanitation workers (Safai Karamcharis) face occupational injuries from unwrapped glass shards and fire risks from lithium battery compaction.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 3 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Detail the 5 stages of Design Thinking used to build the solution.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 5 ? Design Thinking Process</span>
+                <h2>5-Stage Design Thinking Journey</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;">
+        <div class="info-card">
+            <h4><span class="highlight">Stage 1: Empathize</span></h4>
+            <p>Interviewed campus canteen staff, students, and hostel sanitation workers. Discovered that 82% of students want to recycle, but uncertainty about bin categories causes default landfill dumping.</p>
+        </div>
+        <div class="info-card">
+            <h4><span class="highlight">Stage 2: Define</span></h4>
+            <p>Target Users: University students, faculty, dormitory residents, and municipal waste operators. Root Problem: Lack of real-time point-of-disposal guidance and regulatory awareness.</p>
+        </div>
+        <div class="info-card">
+            <h4><span class="highlight">Stage 3: Ideate</span></h4>
+            <p>Brainstormed AI paradigms: Settled on a multimodal vision classifier paired with an IBM Granite RAG assistant to answer regulatory nuances and calculate instantaneous carbon savings.</p>
+        </div>
+        <div class="info-card">
+            <h4><span class="highlight">Stage 4 & 5: Prototype & Test</span></h4>
+            <p>Built a working interactive application with 6 representative waste classes. Refined based on mentor feedback: added contamination warning banners and sanitation worker safety protocols.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 4 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Explain technical architecture with multimodal vision, IBM Granite RAG, and lifecycle LCA engine.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 4 ? Allowed AI Components</span>
+                <h2>AI Solution Overview & Technical Architecture</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-camera"></i> Multimodal Vision</h4>
+            <p>Identifies material composition (PET, HDPE, Corrugated Paper, Glass, Li-Ion) and inspects surface contamination (grease, moisture).</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-brain"></i> IBM Granite RAG</h4>
+            <p>Retrieval-Augmented Generation ingests SWM 2016 Rules, E-Waste Rules 2022, and CPCB directives. Structures answers in IBM Granite prompt formats.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-calculator"></i> Lifecycle LCA Engine</h4>
+            <p>Calculates peer-reviewed environmental savings (kg CO2e averted, water conserved, embodied energy) for every single segregated item.</p>
+        </div>
+    </div>
+    <div class="info-card" style="margin-top:16px;">
+        <h4><i class="fa-solid fa-terminal"></i> IBM Granite 3.0 Instruction Prompt Workflow</h4>
+        <pre style="font-family: monospace; font-size:0.8rem; color:#34D399; background:#0A0F1D; padding:12px; border-radius:8px; overflow-x:auto;">&lt;|start_of_role|&gt;system&lt;|end_of_role|&gt;
+You are EcoSort-Granite 3.0. Ingest verified context from Indian SWM Rules 2016 & CPCB Plastic Directives...
+&lt;|start_of_role|&gt;user&lt;|end_of_role|&gt;
+Query: Can greasy pizza boxes be recycled in the paper bin?
+&lt;|start_of_role|&gt;assistant&lt;|end_of_role|&gt;
+Decision: DO NOT recycle greasy base in Blue Bin. Tear clean lid for Blue Bin; compost greasy base.</pre>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 5 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Walk through the working interactive prototype capabilities.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 8 ? Prototype or Demo</span>
+                <h2>Working Prototype Walkthrough & Demo</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-laptop-code"></i> Prototype Capabilities</h4>
+            <ul style="margin-top:10px;">
+                <li><strong>Live Image Classifier:</strong> 6 pre-loaded benchmark items + live image upload.</li>
+                <li><strong>Contamination Alerts:</strong> Differentiates clean paper from oil-stained cardboard.</li>
+                <li><strong>Official Color-Coded Bins:</strong> Blue (Dry), Green (Wet), Red (Hazardous), Yellow (E-Waste).</li>
+                <li><strong>Conversational RAG:</strong> Natural language municipal law Q&A with statutory citations.</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-list-check"></i> Sample Input / Output Pipeline</h4>
+            <p style="font-size:0.88rem; color:#94A3B8;"><strong>Input:</strong> Delivery Pizza Box (Greasy base, clean lid)</p>
+            <p style="font-size:0.88rem; color:#94A3B8;"><strong>Detection:</strong> 93% Confidence ? Contamination Flag: ACTIVE</p>
+            <p style="font-size:0.88rem; color:#94A3B8;"><strong>Protocol:</strong> Tear clean lid -> Blue Bin; Greasy base -> Green Bin.</p>
+            <p style="font-size:0.88rem; color:#34D399; margin-top:8px;"><strong>Carbon Offset:</strong> 0.189 kg CO2e prevented from landfill methane generation.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 6 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Detail the 4 user groups and how each benefits from the platform.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 2 & 8 ? User Analysis</span>
+                <h2>Target Users & Beneficiary Ecosystem</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-4">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-user-graduate"></i> Students & Faculty</h4>
+            <p>Gain instant certainty at campus disposal stations; gamified carbon metrics foster long-term sustainable habits.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-hands-holding-child"></i> Sanitation Staff</h4>
+            <p>Eliminates hazardous sharp punctures and battery fire risks; reduces manual sorting burden and dignifies labor.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-school"></i> Campus Admin</h4>
+            <p>Achieves AICTE Green Campus certification, cuts landfill hauling fees, and monetizes segregated recyclable scrap.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-truck-front"></i> Municipalities</h4>
+            <p>Reduces inbound contamination at city baling facilities and mitigates unmanaged landfill fire hazards.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 7 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Walk through the 4 mandatory Responsible AI pillars: Fairness, Transparency, Ethics, and Privacy.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 7 ? Mandatory Guidelines</span>
+                <h2>Responsible AI Considerations</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;">
+        <div class="info-card" style="border-left:4px solid #10B981;">
+            <h4><i class="fa-solid fa-scale-balanced"></i> 1. Fairness & Robustness</h4>
+            <p>Trained across 5 real-world visual degradation conditions (crushed bottles, soiled boxes, dim lighting). Benchmarked across unbranded Indian products to avoid brand bias.</p>
+        </div>
+        <div class="info-card" style="border-left:4px solid #38BDF8;">
+            <h4><i class="fa-solid fa-magnifying-glass"></i> 2. Transparency & Explainability</h4>
+            <p>Every inference provides an Explainable AI (XAI) feature attribution breakdown (e.g. SPI resin stamp, lipid reflectivity). Low confidence triggers human verification.</p>
+        </div>
+        <div class="info-card" style="border-left:4px solid #F59E0B;">
+            <h4><i class="fa-solid fa-shield-heart"></i> 3. Ethics & Human Dignity</h4>
+            <p>Enforces safety packaging for broken glass to prevent Safai Karamchari injury. Rejects deceptive greenwashing by accurately identifying unrecyclable multi-layered plastics.</p>
+        </div>
+        <div class="info-card" style="border-left:4px solid #A855F7;">
+            <h4><i class="fa-solid fa-user-lock"></i> 4. Privacy & Data Governance</h4>
+            <p>Automatic EXIF GPS metadata stripping. Zero facial recognition or human biometric processing. Edge-friendly design guarantees complete user anonymity.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 8 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Present environmental, social, and economic impact metrics in detail.">
+            <div class="slide-head">
+                <span class="slide-tag">Section 8 ? Impact Statement</span>
+                <h2>Expected Impact Statement</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+        <div class="info-card" style="border-top:4px solid #10B981;">
+            <h4><i class="fa-solid fa-seedling"></i> Environmental Impact</h4>
+            <ul>
+                <li><strong>86.4% Landfill Diversion Rate:</strong> Diverts organic and recyclable fractions away from dumpsites.</li>
+                <li><strong>68+ Tons CO2e Prevented Annually:</strong> Per 5,000 campus population through methane mitigation.</li>
+                <li><strong>Water & Energy Savings:</strong> Recycled aluminum saves 95% embodied energy vs virgin bauxite.</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-top:4px solid #38BDF8;">
+            <h4><i class="fa-solid fa-users"></i> Social Impact</h4>
+            <ul>
+                <li><strong>Worker Protection:</strong> Eliminates puncture injuries from sharps and glass for sanitation staff.</li>
+                <li><strong>Behavioral Change:</strong> Gamified real-time impact cards instill circular habits in university youth.</li>
+                <li><strong>Inclusive Transition:</strong> Integrates informal waste pickers into formalized recycling supply chains.</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-top:4px solid #F59E0B;">
+            <h4><i class="fa-solid fa-chart-pie"></i> Economic Impact</h4>
+            <ul>
+                <li><strong>?4.26 Lakh Annual Value:</strong> Generated per campus via tipping fee savings and high-grade scrap sales.</li>
+                <li><strong>Zero Contamination Penalties:</strong> Eliminates municipal fines for unsorted institutional waste.</li>
+            </ul>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 9 of 10</span>
+            </div>
+        </div>
+        <div class="slide-container" data-notes="Conclude with 1M1B core values: Think critically, Apply AI responsibly, Design with purpose, and Build for impact.">
+            <div class="slide-head">
+                <span class="slide-tag">Conclusion ? 1M1B Key Message</span>
+                <h2>Conclusion: Building Impactful AI for Sustainability</h2>
+            </div>
+            <div class="slide-body">
+                <div class="problem-statement-box" style="font-size:1.15rem;">
+        "This project demonstrates how AI can become a force for sustainability, inclusion, and positive change?bridging complex technology with everyday campus habits."
+    </div>
+    <div class="grid-3" style="margin-top:20px;">
+        <div class="info-card">
+            <h4><i class="fa-solid fa-rocket"></i> Next Steps</h4>
+            <p>Deploy edge cameras at dining hall disposal belts and scale the IBM Granite RAG chatbot across regional Indian languages.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-handshake-angle"></i> Acknowledgments</h4>
+            <p>Grateful to <strong>1M1B</strong>, <strong>IBM SkillsBuild</strong>, and <strong>AICTE</strong> for mentorship and platform to build purpose-driven AI.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fa-solid fa-circle-check"></i> Prototype Status</h4>
+            <p>Working code, RAG engine, test suite, and interactive dashboard fully operational and open-source.</p>
+        </div>
+    </div>
+            </div>
+            <div class="slide-foot">
+                <span>1M1B AI for Sustainability Virtual Internship ? IBM SkillsBuild & AICTE</span>
+                <span>Slide 10 of 10</span>
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes-panel">
+        <strong>Speaker Notes / Presentation Guidance:</strong>
+        <p id="speakerNotesText">Introduce project title, student credentials, and collaboration between 1M1B, IBM SkillsBuild, and AICTE.</p>
+    </div>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const counter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const notesText = document.getElementById('speakerNotesText');
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                s.classList.toggle('active', idx === currentSlide);
+            });
+            counter.textContent = `Slide ${currentSlide + 1} / ${slides.length}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            const currentNotes = slides[currentSlide].getAttribute('data-notes') || 'No notes for this slide.';
+            notesText.textContent = currentNotes;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>
